@@ -1,0 +1,45 @@
+ 
+<nav class="navbar navbar-dark bg-primary position-relative">
+    <div class="container">
+        <a class="navbar-brand" href="/">Github searcher</a>
+    </div>
+      <div class="container fixed-top"> 
+        <flash-messages class="  col-12 mt-3  "></flash-messages>
+      </div>
+       
+  </nav>
+ 
+   
+  <div class="container" *ngIf="!local">
+    <div class="input-group mb-3 mt-3">
+        <input type="text" 
+          class="form-control"
+          placeholder="Recipient's username" 
+          aria-label="Recipient's username"
+          name="searchText"
+          [(ngModel)]="searchText"
+          (keyup)='searchUser()'
+          [ngClass]="{'is-invalid':  changeClass }"
+          >
+        <div class="input-group-append" >
+          <button class="btn btn-outline-secondary" type="button" (click)="getFavoriteRepos()">"Список улюблених репозиторіїв"</button>
+        </div>
+      </div>
+  </div>
+  <div class="container">
+    <ul class="list-group d-flex flex-row flex-wrap row" *ngIf="!searchText && !local  ">
+      <app-userslist *ngFor="let useri of users" [user] = useri class="col-sm-12 col-md-6 mt-2"></app-userslist>
+    </ul>
+
+    <ul class="list-group d-flex flex-row flex-wrap row" *ngIf="searchText">
+      <app-userslist *ngFor="let useri of searchingResult" [user] = useri class="col-sm-12 col-md-6 mt-2"></app-userslist>
+    </ul>
+    
+    <!-- favorite -->
+    <ul class="list-group d-flex flex-row flex-wrap row" *ngIf="local">
+      <h1 class="mt-3 mb-3">"Список улюблених репозиторіїв" </h1>
+       
+      <app-favorite  class="col-sm-12 d-flex flex-row flex-wrap row mt-2"></app-favorite>
+       
+    </ul>
+  </div>
